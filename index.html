@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ViVoice — скачать для Windows</title>
+<meta name="description" content="ViVoice: голосовые каналы, демонстрация экрана и чат для своей компании. Скачайте приложение для Windows.">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* Цвета взяты со значка: оранжевый круг, тёмно-синий микрофон, мятное облачко */
+  :root {
+    --orange: #F2793F;
+    --ink: #18203A;
+    --ink-soft: #3A4566;
+    --mint: #DDF4C5;
+    --paper: #EEF2FA;
+    --card: #FFFFFF;
+    --text: #18203A;
+    --muted: #586382;
+    --line: #D5DCEB;
+    --display: "Unbounded", "Segoe UI", sans-serif;
+    --body: "Manrope", "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #121828;
+      --card: #1A2238;
+      --text: #E9EDF7;
+      --muted: #9AA5C2;
+      --line: #2A3450;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; font-family: var(--body); color: var(--text); background: var(--paper); font-size: 17px; line-height: 1.6; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap { width: min(1160px, 100% - 40px); margin: 0 auto; }
+
+  /* ---------- шапка ---------- */
+  .top { background: var(--orange); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-family: var(--display); font-weight: 700; font-size: 20px; }
+  .brand img { width: 40px; height: 40px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+    font: 700 16px/1 var(--body); border: 0; border-radius: 999px; padding: 14px 22px;
+    background: var(--ink); color: var(--mint); transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { background: #222D52; }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .actions { display: flex; align-items: center; gap: 10px; }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn.ghost:hover { background: rgba(24,32,58,.12); }
+  .btn.small { padding: 11px 18px; font-size: 15px; }
+  .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+
+  /* ---------- первый экран: значок во весь экран ---------- */
+  .hero { background: var(--orange); color: var(--ink); padding: 40px 0 0; overflow: hidden; }
+  .scene { display: grid; grid-template-columns: 92px 1fr; gap: 28px; align-items: start; }
+  .mic { position: relative; height: 330px; margin-top: 18px; }
+  .mic::before { content: ""; position: absolute; inset: 0 0 96px 0; background: var(--ink); border-radius: 46px; }
+  .mic::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 14px; height: 120px; margin-left: -7px; background: var(--ink); border-radius: 7px; }
+  .bubble { position: relative; background: var(--mint); border-radius: 44px; padding: 46px 52px 50px; max-width: 900px; box-shadow: 0 2px 0 rgba(24,32,58,.08); }
+  /* хвостик облачка, как на значке: прямой угол сверху справа */
+  .bubble::after { content: ""; position: absolute; right: 120px; bottom: -58px; border-top: 60px solid var(--mint); border-left: 74px solid transparent; }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(36px, 5.6vw, 72px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 22px; max-width: 13ch; }
+  .lead { font-size: 19px; line-height: 1.55; margin: 0 0 30px; max-width: 46ch; color: var(--ink-soft); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+  .meta { font-size: 15px; color: var(--ink-soft); }
+  .meta a { font-weight: 700; color: var(--ink); }
+  .started { margin: 16px 0 0; font-size: 15px; font-weight: 600; color: var(--ink); min-height: 1.6em; }
+
+  .hero-shot { margin: 96px auto 0; width: min(1160px, 100% - 40px); }
+  .frame { border-radius: 14px 14px 0 0; overflow: hidden; background: #13161F; box-shadow: 0 -1px 0 rgba(255,255,255,.4) inset, 0 30px 60px -20px rgba(24,32,58,.45); }
+  .frame .bar { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #0E1018; color: #8D96AE; font-size: 12px; }
+  .frame .bar span { width: 10px; height: 10px; border-radius: 50%; background: #2A2F3E; }
+  .frame .bar b { margin-left: 8px; font-weight: 600; }
+
+  /* ---------- возможности ---------- */
+  .features { padding: 96px 0 40px; }
+  .feature { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; align-items: center; padding: 40px 0; }
+  .feature + .feature { border-top: 1px solid var(--line); }
+  .feature:nth-child(even) .text { order: 2; }
+  .feature h2 { font-family: var(--display); font-weight: 500; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; margin: 0 0 14px; }
+  .feature p { margin: 0; color: var(--muted); max-width: 42ch; }
+  .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #13161F; }
+
+  /* ---------- установка: это действительно шаги по порядку ---------- */
+  .install { padding: 56px 0 96px; }
+  .install h2 { font-family: var(--display); font-weight: 500; font-size: clamp(26px, 3vw, 36px); margin: 0 0 30px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+  .steps li { counter-increment: step; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 26px 24px 28px; }
+  .steps li::before { content: counter(step); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: var(--ink); font: 700 18px/1 var(--display); margin-bottom: 16px; }
+  .steps h3 { margin: 0 0 6px; font-size: 18px; }
+  .steps p { margin: 0; color: var(--muted); font-size: 16px; }
+
+  /* ---------- подвал ---------- */
+  footer { background: var(--ink); color: #C9D1E6; padding: 40px 0; font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center; }
+  footer a { color: var(--mint); font-weight: 600; }
+
+  @media (max-width: 860px) {
+    .scene { grid-template-columns: 1fr; }
+    .mic { display: none; }
+    .bubble { padding: 32px 26px 36px; border-radius: 30px; }
+    .bubble::after { right: 60px; bottom: -40px; border-top-width: 42px; border-left-width: 52px; }
+    .lead { font-size: 17px; }
+    .hero-shot { margin-top: 70px; }
+    .feature { grid-template-columns: 1fr; gap: 22px; padding: 32px 0; }
+    .feature:nth-child(even) .text { order: 0; }
+    .steps { grid-template-columns: 1fr; }
+    .top .btn .long { display: none; }
+    .btn.small { padding: 10px 14px; font-size: 14px; }
+    .btn.ghost span { display: none; }
+    .actions { gap: 8px; }
+    .brand { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="40" height="40">ViVoice</a>
+    <div class="actions">
+    <a class="btn small ghost" href="https://imvl1.github.io/donation/" target="_blank" rel="noopener" aria-label="Поддержать проект"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 2.9 5 6.2 5c1.9 0 3.2 1 3.8 2.1h4C14.6 6 15.9 5 17.8 5c3.3 0 5.3 3.3 3.8 6.7C19.5 16.4 12 21 12 21z" transform="translate(0 -.5)"/></svg><span>Поддержать</span></a>
+    <a class="btn small js-download" href="ViVoice-Setup-0.1.26.exe" download aria-label="Скачать ViVoice для Windows">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+      <span>Скачать<span class="long"> для Windows</span></span>
+    </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap scene">
+      <div class="mic" aria-hidden="true"></div>
+      <div class="bubble">
+        <h1>Голос, экран и чат для своих</h1>
+        <p class="lead">Голосовые каналы, демонстрация экрана со звуком и переписка с файлами. Всё работает на собственном сервере вашей компании.</p>
+        <div class="cta">
+          <a class="btn js-download" href="ViVoice-Setup-0.1.26.exe" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+            Скачать для Windows
+          </a>
+          <div class="meta"><span id="version">Версия 0.1.26, Windows 10 и 11</span></div>
+        </div>
+        <p class="started" id="started" role="status"></p>
+      </div>
+    </div>
+    <div class="hero-shot">
+      <div class="frame">
+        <div class="bar" aria-hidden="true"><span></span><span></span><span></span><b>ViVoice</b></div>
+        <img src="shots/chat.webp" width="1600" height="965" alt="Окно ViVoice: сервер «Вечерний сбор», текстовый канал с перепиской и список участников">
+      </div>
+    </div>
+  </section>
+
+  <section class="features wrap" aria-label="Возможности">
+    <article class="feature">
+      <div class="text">
+        <h2>Голосовые каналы</h2>
+        <p>Заходите в канал одним нажатием и сразу видно, кто говорит, у кого включена камера и кто показывает экран. Громкость каждого человека настраивается отдельно, а рация работает по горячей клавише, даже когда вы в игре.</p>
+      </div>
+      <img class="shot" src="shots/voice.webp" width="1600" height="965" loading="lazy" alt="Голосовой канал «Болталка» с четырьмя участниками">
+    </article>
+    <article class="feature">
+      <div class="text">
+        <h2>Демонстрация экрана</h2>
+        <p>Весь экран или одно окно, вместе со звуком игры или видео. Разрешение от 720p до 2160p и до 60 кадров в секунду. Выше разрешения вашего монитора выбрать нельзя, а 4K идёт в 30 кадрах, чтобы трансляция не тормозила.</p>
+      </div>
+      <img class="shot" src="shots/stream.webp" width="1400" height="744" loading="lazy" alt="Настройки демонстрации: выбор разрешения и частоты кадров">
+    </article>
+    <article class="feature">
+      <div class="text">
+        <h2>Друзья и личные сообщения</h2>
+        <p>Добавляйте друзей по имени, пишите лично, закрепляйте важные чаты и заглушайте лишние. К любому человеку можно оставить заметку, её видите только вы.</p>
+      </div>
+      <img class="shot" src="shots/friends.webp" width="1600" height="965" loading="lazy" alt="Раздел «Друзья» со списком друзей и личными сообщениями">
+    </article>
+    <article class="feature">
+      <div class="text">
+        <h2>Профили и заметки</h2>
+        <p>Аватар, имя, цвет и пара слов о себе. Нажмите на собеседника в чате, чтобы открыть его профиль, написать ему или добавить в друзья.</p>
+      </div>
+      <img class="shot" src="shots/profile.webp" width="1400" height="1160" loading="lazy" alt="Карточка профиля с заметкой и кнопками">
+    </article>
+  </section>
+
+  <section class="install wrap" id="install">
+    <h2>Как установить</h2>
+    <ol class="steps">
+      <li>
+        <h3>Скачайте установщик</h3>
+        <p>Кнопкой «Скачать» вверху страницы. Файл называется ViVoice-Setup и весит около ста мегабайт.</p>
+      </li>
+      <li>
+        <h3>Запустите его</h3>
+        <p>Если Windows покажет «Система Windows защитила ваш компьютер», нажмите «Подробнее» и «Выполнить в любом случае». Так Windows встречает программы без платной подписи.</p>
+      </li>
+      <li>
+        <h3>Войдите и общайтесь</h3>
+        <p>Создайте аккаунт или войдите в свой. Новые версии приложение скачает и установит само.</p>
+      </li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Вопросы и предложения: <a href="mailto:vivoicechatmessage@gmail.com">vivoicechatmessage@gmail.com</a></div>
+    <div>ViVoice, автор ImVl1 · <a href="https://imvl1.github.io/donation/" target="_blank" rel="noopener">Поддержать проект</a></div>
+  </div>
+</footer>
+
+<script>
+  // После нажатия «Скачать» подсказываем, что делать дальше
+  document.querySelectorAll(".js-download").forEach((a) =>
+    a.addEventListener("click", () => {
+      document.getElementById("started").textContent =
+        "Скачивание началось. Когда файл загрузится, откройте его, и установка начнётся.";
+    }),
+  );
+</script>
+</body>
+</html>
